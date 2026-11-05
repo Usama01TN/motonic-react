@@ -1,0 +1,152 @@
+/* ==========================================================================
+   React port additions — replaces visual behaviour that jQuery plugins
+   (fadeIn/fadeOut, owlCarousel, fancybox) used to provide.
+   ========================================================================== */
+
+/* Preloader fade-out */
+.preloader {
+    transition: opacity 0.5s ease;
+}
+.preloader.is-fading {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Back-to-top button fade */
+.back-to-top {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease, background-color 0.2s;
+}
+.back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Header search overlay fade-in */
+.header-search-form.is-open {
+    animation: hx-fade-in 0.3s ease;
+}
+@keyframes hx-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* owl.carousel.css made carousel images block-level & full width; keep that for slick */
+.hx-testimonial-active .slick-slide img,
+.Gift-carousel .slick-slide img {
+    display: block;
+    width: 100%;
+}
+
+/* Counter keeps the odometer box model so fun-fact numbers sit exactly as before */
+.odometer.odometer-auto-theme {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    line-height: 1.1em;
+}
+
+/* Testimonial slider dots (owl-dots -> slick-dots, same look) */
+.hx-testimonial-active.slick-slider {
+    position: relative;
+    margin-bottom: 10px; /* matches the 10px owl-theme added under the carousel */
+}
+.hx-testimonial-active .slick-dots {
+    position: absolute;
+    left: 50%;
+    bottom: -75px;
+    width: auto;
+    transform: translateX(-50%);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.hx-testimonial-active .slick-dots li {
+    height: 10px;
+    width: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    margin: 20px 10px;
+    display: inline-block;
+    position: relative;
+}
+.hx-testimonial-active .slick-dots li button {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    opacity: 0;
+}
+.hx-testimonial-active .slick-dots li button:before {
+    display: none;
+}
+.hx-testimonial-active .slick-dots li.slick-active {
+    background: #999999;
+}
+.hx-testimonial-active .slick-dots li.slick-active:before {
+    position: absolute;
+    left: -37%;
+    top: -37%;
+    width: 180%;
+    height: 180%;
+    content: "";
+    border: 1px solid #999999;
+    border-radius: 50%;
+}
+
+/* Client logo carousel (owl-item img -> slick-slide img) */
+.hx-client-area .Gift-carousel .slick-slide img {
+    display: block;
+    transform-style: preserve-3d;
+    width: 50%;
+}
+.hx-client-area .slick-list {
+    padding-left: 50px;
+}
+
+/* Video lightbox (replaces fancybox iframe popup) */
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: hx-fade-in 0.3s ease;
+}
+.video-modal-inner {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+.video-modal-inner iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.video-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Contact form status (template hides these; React toggles .is-visible) */
+.contact-validation-active #success.is-visible,
+.contact-validation-active #error.is-visible {
+    display: block;
+}
+.contact-validation-active #loader.is-visible {
+    display: inline-block;
+}
